@@ -1,0 +1,43 @@
+.flex {
+    height: 30rem;
+    width: 100%;
+}
+
+.imgFlex {
+    width: 100%;
+    margin-left: 0;
+}
+
+.flex-area {
+    height: 30%;
+    width: 15%;
+    margin: 3rem 1rem 0 4rem;
+}
+
+.flex-area1 {
+    height: 100%;
+    width: 100%;
+}
+
+.imgContainer {
+    position: relative;
+    border: 1px solid black;
+    width: 15%;
+    height: 90%;
+    margin: 3rem 1rem 0 4rem;
+}
+
+.bgDel {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 1.8rem;
+    width: 1.8rem;
+    position: absolute;
+    top: 7%;
+    right: 8%;
+    background-color: rgba(255, 255, 255, 0.66);
+}
+.bgDel:hover {
+    background-color: rgba(255, 255, 255, 0.80);
+}
