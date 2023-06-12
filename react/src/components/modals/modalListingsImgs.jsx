@@ -22,12 +22,13 @@ import img13 from "../../assets/img/13.jpg";
 import "../../styles/modal.css";
 import "../../styles/modalImgsSwitch.css";
 
-const ModalListingsImgs = ({ closeModal }) => {
+const ModalListingsImgs = ({ closeModal, images }) => {
   const [activeSection, setActiveSection] = useState("EXTERIOR");
   const [isHovered, setIsHovered] = useState(false);
   const [isHoveredClose, setIsHoveredClose] = useState(false);
   const [isGoBackHovered, setIsGoBackHovered] = useState(false);
   const [isOpen, setIsOpen] = useState(true);
+  const hasImages = images && images.length > 0;
 
   const handleGoBackMouseEnter = () => {
     setIsGoBackHovered(true);

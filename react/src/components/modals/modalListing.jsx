@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import "../../styles/modal.css";
 import testImg from "../../assets/img/testImg.jpg";
+import bg from "../../assets/img/BG.svg";
 import closeListing from "../../assets/img/close.svg";
 import closeHover from "../../assets/img/closeHover.svg";
 import ModalListingsImgs from "./modalListingsImgs";
@@ -126,11 +127,10 @@ const EditModalListings = () => {
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
-        handleCloseModal(); // Cierra el modal después de guardar exitosamente
+        handleCloseModal();
 
-        // Espera un breve período de tiempo antes de recargar la página
         setTimeout(() => {
-          window.location.reload(); 
+          window.location.reload();
         }, 500);
       })
       .catch((error) => {
@@ -168,6 +168,13 @@ const EditModalListings = () => {
                   className="ModalImg"
                   src={testImg}
                   alt="testImg"
+                  onMouseEnter={handleImageMouseEnter}
+                  onMouseLeave={handleImageMouseLeave}
+                />
+                <img
+                  className="ModalImg"
+                  src={bg}
+                  alt="bg"
                   onMouseEnter={handleImageMouseEnter}
                   onMouseLeave={handleImageMouseLeave}
                 />
