@@ -65,10 +65,6 @@
     cursor: pointer;
 }
 
-.close:hover {
-    color: #31af9a;
-}
-
 .cancel {
     color: #197572;
     text-decoration: underline;
@@ -338,9 +334,10 @@ li {
 }
 
 .gobackContainer {
-    margin-top: 1rem;
+    margin-top: 3rem;
     margin-left: 4rem;
     overflow: hidden;
+    width: 100%;
 }
 
 .goBack {
@@ -356,8 +353,8 @@ li {
 
 .closeListing2 {
     height: 0.7rem;
-    margin-left: 98%;
-    margin-top: 1.8%;
+    margin-right: 6rem;
+    cursor: pointer;
 }
 
 .modalNav {
