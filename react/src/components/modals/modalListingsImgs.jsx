@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import arrow from "../../assets/img/arrow.svg";
 import arrowHover from "../../assets/img/arrowHover.svg";
 import closeListing2 from "../../assets/img/close.svg";
@@ -21,13 +21,25 @@ import img12 from "../../assets/img/12.jpg";
 import img13 from "../../assets/img/13.jpg";
 import "../../styles/modal.css";
 import "../../styles/modalImgsSwitch.css";
+import EditModalSections from "./modalSections";
 
 const ModalListingsImgs = ({ closeModal, images }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedOption, setSelectedOption] = useState(null);
   const [activeSection, setActiveSection] = useState("EXTERIOR");
   const [isHovered, setIsHovered] = useState(false);
   const [isHoveredClose, setIsHoveredClose] = useState(false);
   const [isGoBackHovered, setIsGoBackHovered] = useState(false);
   const [isOpen, setIsOpen] = useState(true);
+   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+
+   const openEditModal = () => {
+     setIsEditModalOpen(true);
+   };
+
+   const closeEditModal = () => {
+     setIsEditModalOpen(false);
+   };
   const hasImages = images && images.length > 0;
 
   const handleGoBackMouseEnter = () => {
@@ -47,6 +59,11 @@ const ModalListingsImgs = ({ closeModal, images }) => {
 
   const handleSectionClick = (section) => {
     setActiveSection(section);
+    setModalRef(section.modalRef);
+  };
+  const handleEditSectionsClick = () => {
+    setSelectedOption("editSections");
+    setIsModalOpen(true);
   };
   const handleCloseModal = () => {
     closeModal();
@@ -55,6 +72,10 @@ const ModalListingsImgs = ({ closeModal, images }) => {
   const handleCloseTotal = () => {
     navigate("/listingsAdmin");
   };
+   useEffect(() => {
+     setIsModalOpen(false);
+   }, []);
+
 
   const renderSectionContent = () => {
     switch (activeSection) {
@@ -469,11 +490,19 @@ const ModalListingsImgs = ({ closeModal, images }) => {
           >
             BATHROOM 3
           </li>
-          <li className="option">Edit Sections</li>
-          <li className="option">+ Add Photos</li>
+          <li className="option" onClick={handleEditSectionsClick}>
+            Edit Sections
+          </li>
+          <li className="option">
+            <label className="option" htmlFor="fileInput">
+              + Add Photos
+            </label>
+            <input type="file" id="fileInput" />
+          </li>
         </ul>
       </div>
       <div className="sectionContent">{renderSectionContent()}</div>
+      {isModalOpen && <EditModalSections closeModal={closeModal} />}
     </div>
   );
 };

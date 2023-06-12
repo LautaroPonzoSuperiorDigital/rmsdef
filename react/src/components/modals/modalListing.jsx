@@ -8,7 +8,7 @@ import ModalListingsImgs from "./modalListingsImgs";
 import Pagination from "../paginations";
 import { useNavigate } from "react-router-dom";
 
-const EditModalListings = () => {
+const EditModalListings = ({ renderSectionContent }) => {
   const [isCloseHovered, setIsCloseHovered] = useState(false);
   const [showImageModal, setShowImageModal] = useState(false);
   const [showMainModal, setShowMainModal] = useState(true);
@@ -157,6 +157,8 @@ const EditModalListings = () => {
     };
   }, []);
 
+  const hasNoImages =
+    !renderSectionContent || renderSectionContent.images.length === 0;
   return (
     <div className="bg">
       <div className="modalWrapper2 container-fluid">
@@ -164,26 +166,35 @@ const EditModalListings = () => {
           <div className="container-fluid modalContent2 d-flex justify-content-center align-items-center">
             <div className="row">
               <div className="imgContainer" onClick={handleImageClick}>
-                <img
-                  className="ModalImg"
-                  src={testImg}
-                  alt="testImg"
-                  onMouseEnter={handleImageMouseEnter}
-                  onMouseLeave={handleImageMouseLeave}
-                />
-                <img
-                  className="ModalImg"
-                  src={bg}
-                  alt="bg"
-                  onMouseEnter={handleImageMouseEnter}
-                  onMouseLeave={handleImageMouseLeave}
-                />
+                {hasNoImages ? (
+                  <img
+                    className="ModalImg"
+                    src={bg}
+                    alt="bg"
+                    onMouseEnter={handleImageMouseEnter}
+                    onMouseLeave={handleImageMouseLeave}
+                  />
+                ) : (
+                  <img
+                    className="ModalImg1"
+                    src={testImg}
+                    alt="testImg"
+                    onMouseEnter={handleImageMouseEnter}
+                    onMouseLeave={handleImageMouseLeave}
+                  />
+                )}
                 <div
                   className={`imgOverlay ${isImageHovered ? "hovered" : ""}`}
                 >
-                  <div className="editBar">
-                    <span className="editText">Edit Album (10)</span>
-                  </div>
+                  {hasNoImages ? (
+                    <div className="editBar1">
+                      <span className="editText">+ Add Photos</span>
+                    </div>
+                  ) : (
+                    <div className="editBar">
+                      <span className="editText">Edit Album (10)</span>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
