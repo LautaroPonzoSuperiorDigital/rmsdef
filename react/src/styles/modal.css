@@ -345,6 +345,7 @@ li {
     text-transform: uppercase;
     color: #197572;
     font-weight: 500;
+    cursor: pointer;
 }
 
 .goBack:hover {
@@ -381,7 +382,6 @@ li {
 
 .liModal:hover {
     color: #197572;
-    cursor: pointer;
 }
 
 .liModal::after {
@@ -409,6 +409,7 @@ li {
 .option {
     color: #197572;
     margin-right: 2%;
+    cursor: pointer;
     font-size: 1rem;
     margin-bottom: -1rem;
     text-decoration: underline;

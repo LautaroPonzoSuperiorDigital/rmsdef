@@ -25,7 +25,16 @@ import "../../styles/modalImgsSwitch.css";
 const ModalListingsImgs = ({ closeModal }) => {
   const [activeSection, setActiveSection] = useState("EXTERIOR");
   const [isHovered, setIsHovered] = useState(false);
+  const [isHoveredClose, setIsHoveredClose] = useState(false);
+  const [isGoBackHovered, setIsGoBackHovered] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
 
+  const handleGoBackMouseEnter = () => {
+    setIsGoBackHovered(true);
+  };
+  const handleGoBackMouseLeave = () => {
+    setIsGoBackHovered(false);
+  };
   const handleMouseEnter = () => {
     setIsHovered(true);
   };
@@ -40,6 +49,9 @@ const ModalListingsImgs = ({ closeModal }) => {
   };
   const handleCloseModal = () => {
     closeModal();
+    navigate("/listingsAdmin");
+  };
+  const handleCloseTotal = () => {
     navigate("/listingsAdmin");
   };
 
@@ -378,23 +390,24 @@ const ModalListingsImgs = ({ closeModal }) => {
       <div className="gobackContainer d-flex justify-content-between">
         <h2
           className="goBack"
-          onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseLeave}
+          onMouseEnter={handleGoBackMouseEnter}
+          onMouseLeave={handleGoBackMouseLeave}
           onClick={handleCloseModal}
         >
           <img
             className="arrow mb-1"
-            src={isHovered ? arrowHover : arrow}
+            src={isGoBackHovered ? arrowHover : arrow}
             alt="arrow"
           />
           Go Back
         </h2>
         <img
           className="closeListing2"
-          src={isHovered ? closeHover : closeListing2}
+          src={isHoveredClose ? closeHover : closeListing2}
           alt="close"
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
+          onMouseEnter={() => setIsHoveredClose(true)}
+          onMouseLeave={() => setIsHoveredClose(false)}
+          onClick={handleCloseModal}
         />
       </div>
       <div className="modalNav">
