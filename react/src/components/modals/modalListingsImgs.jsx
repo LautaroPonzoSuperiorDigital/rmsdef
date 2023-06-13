@@ -37,49 +37,34 @@ const ModalListingsImgs = ({ closeModal, images }) => {
 
   const handleFileInputChange = (event) => {
     const file = event.target.files[0];
-    setSelectedFile(file);
-    const reader = new FileReader();
+    setSelectedImage(file);
+  };
+  const handleImageUpload = () => {
+    if (!selectedImage) {
+      console.error("No image selected.");
+      return;
+    }
 
-    const uploadImage = (file) => {
-      if (!(file instanceof File)) {
-        console.error("Invalid file");
-        return;
-      }
+    const formData = new FormData();
+    formData.append("image", selectedImage);
+    formData.append("section_id", 1);
 
-      const reader = new FileReader();
-
-      reader.onload = (e) => {
-        const arrayBuffer = e.target.result;
-
-        fetch("http://localhost:8000/api/add-listing", {
-          method: "POST",
-          body: arrayBuffer,
-          headers: {
-            "Content-Type": file.type,
-          },
-        })
-          .then((response) => {
-            if (response.ok) {
-              console.log("Image uploaded successfully");
-              // Handle the server response if necessary
-            } else {
-              throw new Error("Error uploading image");
-            }
-          })
-          .catch((error) => {
-            console.error(error);
-            // Handle errors
-          });
-      };
-
-      reader.readAsArrayBuffer(file);
-    };
-    reader.onload = (e) => {
-      setSelectedImage(e.target.result);
-      uploadImage(file);
-    };
-
-    reader.readAsDataURL(file);
+    fetch("http://localhost:8000/api/add-listing", {
+      method: "POST",
+      body: formData,
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
   const handleImageChange = (event) => {
     const file = event.target.files[0];
@@ -137,7 +122,10 @@ const ModalListingsImgs = ({ closeModal, images }) => {
             <div className="imgFlex d-flex flex-wrap justify-content-start">
               <div className="imgContainer1">
                 {selectedImage ? (
-                  <img className="flex-area1" src={selectedImage} />
+                  <img
+                    className="flex-area1"
+                    src={URL.createObjectURL(selectedImage)}
+                  />
                 ) : (
                   <img className="flex-area1" src={img1} />
                 )}
