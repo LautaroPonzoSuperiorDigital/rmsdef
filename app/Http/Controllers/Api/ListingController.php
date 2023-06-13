@@ -11,6 +11,8 @@ use Illuminate\Http\Request;
 // use Illuminate\Support\Facades\Auth;
 // use App\Models\User;
 use Illuminate\Support\Facades\DB;
+// use Illuminate\Support\Facades\Storage;
+
 
 // use Illuminate\Support\Facades\Storage;
 
@@ -228,7 +230,11 @@ class ListingController extends Controller
     }
     public function publicListings()
     {
+<<<<<<< HEAD
         $listings = Listing::where([['status', 1], ['public', 1]])->get();
+=======
+        $listings = Listing::where([['status',  1], ['public',  1]])->get();
+>>>>>>> 4ec8a079b6c7a915b57806d1a1a608dddd56fa50
 
         return response()->json(['listings' => $listings], 200);
     }

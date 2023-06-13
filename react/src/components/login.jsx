@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Logo from "../assets/img/Logo.svg";
-import "../App.css";
+import "../app.css";
 import "../styles/login.css";
 import Swal from "sweetalert2";
 import axios from "axios";

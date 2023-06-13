@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "../styles/modal.css";
-import Close from "../assets/img/Close.svg";
-import CloseHover from "../assets/img/CloseHover.svg";
+import Close from "../assets/img/close.svg";
+import CloseHover from "../assets/img/closeHover.svg";
 import Eye from "../assets/img/Eye.svg";
 
 const EditModal = ({ onSave, onClose, tenant }) => {
