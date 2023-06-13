@@ -39,6 +39,7 @@ const ModalListingsImgs = ({ closeModal, images }) => {
     const file = event.target.files[0];
     setSelectedImage(file);
   };
+
   const handleImageUpload = () => {
     if (!selectedImage) {
       console.error("No image selected.");
@@ -358,7 +359,7 @@ const ModalListingsImgs = ({ closeModal, images }) => {
             Edit Sections
           </li>
           <li className="option">
-            <label className="option" htmlFor="fileInput">
+            <label className="option" htmlFor="fileInput" >
               + Add Photos
             </label>
             <input
