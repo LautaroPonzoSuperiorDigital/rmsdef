@@ -28,7 +28,7 @@ Route::namespace('App\Http\Controllers\Api')->group(function () {
     Route::post('add-listing', 'ListingController@addListing');
     Route::post('add-main-picture/{id}', 'ListingController@addMainPicture');
     Route::post('add-section', 'ListingController@addSection');
-    Route::post('add-pictures-to-section', 'ListingController@addPicturesToSection');
+    Route::post('add-picture-to-section', 'ListingController@addPictureToSection');
     Route::post('update-listing/{id}', 'ListingController@updateListing');
     Route::post('delete-listing/{id}', 'ListingController@deleteListing');
     Route::post('recover-listing/{id}', 'ListingController@recoverListing');

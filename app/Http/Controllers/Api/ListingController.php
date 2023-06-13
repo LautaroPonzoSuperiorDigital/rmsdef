@@ -4,11 +4,15 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Models\Listing;
+use App\Models\ListingSection;
+use App\Models\SectionPictures;
 use App\Models\Rent;
 use Illuminate\Http\Request;
 // use Illuminate\Support\Facades\Auth;
 // use App\Models\User;
 use Illuminate\Support\Facades\DB;
+// use Illuminate\Support\Facades\Storage;
+
 
 
 
@@ -47,28 +51,26 @@ class ListingController extends Controller
         $listing->lot_size = $request->input('lot_size');
         $listing->house_size = $request->input('house_size');
         $listing->price = $request->input('price');
-        if ($request->input('public') == true) {
-            $listing->public = 1;
-        } else {
-            $listing->public = 0;
-        }
-        //$listing->public = $request->input('public');
+        $listing->public = $request->input('public') ? 1 : 0;
         $listing->bedrooms = $request->input('bedrooms');
         $listing->bathrooms = $request->input('bathrooms');
         $listing->amentities = $request->input('amentities');
         $listing->status = 1;
-        $listing->created_by = '1'; //check auth
+        $listing->created_by = '1'; // Verificar la autenticación
 
         if ($request->hasFile('image')) {
-            $image = $request->file('image');
-            $imagePath = $image->storeAs('public/images', uniqid() . '.' . $image->extension());
-            $listing->image = $imagePath;
+            $file = $request->file('image');
+            $destinationPath = 'images';
+            $filename = time() . '-' . $file->getClientOriginalName();
+            $uploadSuccess = $request->file('image')->move($destinationPath, $filename);
+            $listing->image = $destinationPath . '/' . $filename;
         }
 
         $listing->save();
 
         return response()->json(['listing' => $listing]);
     }
+
 
 
     public function addMainPicture(Request $request, $id)
@@ -78,20 +80,22 @@ class ListingController extends Controller
             return response()->json(['error' => 'Listing not found'], 404);
         }
         if ($request->hasFile('image')) {
-            $image = $request->file('image');
-            $imagePath = $image->storeAs('public/images', uniqid() . '.' . $image->extension());
-            $listing->image = $imagePath;
-            $listing->save();
+            $file = $request->file('image');
+            $destinationPath = 'images';
+            $filename = time() . '-' . $file->getClientOriginalName();
+            $uploadSuccess = $request->file('image')->move($destinationPath, $filename);
+            $listing->image = $destinationPath . '/' . $filename;
         } else {
             return response()->json(['error' => 'No image selected']);
         }
 
+        $listing->save();
         return response()->json(['OK' => 'Upload Success'], ['listing' => $listing]);
     }
 
     public function addSection(Request $request)
     {
-        $section = new ListingSections;
+        $section = new ListingSection;
         $section->listing_id = $request->input('listing_id');
         $section->name = $request->input('name');
 
@@ -100,20 +104,21 @@ class ListingController extends Controller
         return response()->json(['section' => $section]);
     }
 
-    public function addPicturesToSection(Request $request)
+    public function addPictureToSection(Request $request)
     {
-        if ($request->hasFile('gallery')) {
-            foreach ($request->file('gallery') as $file) {
-                $galleryImagePath = $file->store('public/images', uniqid() . '.' . $file->extension());
+        if ($request->hasFile('image')) {
+            $destinationPath = 'images';
+            $file = $request->file('image');
+            $filename = time() . '-' . $file->getClientOriginalName();
+            $uploadSuccess = $file->move($destinationPath, $filename);
 
-                $sectionPictures = new SectionPictures;
-                $sectionPictures->section_id = $request->input('section_id');
-                $sectionPictures->gallery = $galleryImagePath;
-                $sectionPictures->save();
-            }
+            $sectionPicture = new SectionPictures;
+            $sectionPicture->section_id = $request->input('section_id');
+            $sectionPicture->path = $destinationPath . '/' . $filename;
+            $sectionPicture->save();
+
+            return response()->json(['OK' => 'Upload Success']);
         }
-
-        return response()->json(['OK' => 'Upload Success']);
     }
 
 
