@@ -62,7 +62,7 @@ const PublicListings = () => {
       .catch((error) => {
         console.error("Error:", error);
       });
-  }, []);
+  }, []); 
   return (
     <div className=" containerPublic w-100">
       <div
@@ -130,7 +130,8 @@ const PublicListings = () => {
             <div className="description d-flex col">
               <div className="spects d-flex flex-column justify-content-center align-items-start">
                 <p className="publicPrice price">
-                ${listing.price
+                  $
+                  {listing.price
                     ? parseFloat(listing.price).toLocaleString("en", {
                         useGrouping: true,
                       })

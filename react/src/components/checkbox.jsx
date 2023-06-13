@@ -1,19 +1,19 @@
 import React from "react";
-import "../styles/tenants.css"
+import "../styles/tenants.css";
 
 const CheckBoxLog = ({ checked, onChange }) => {
-    const handleCheckBoxChange = () => {
-      onChange(!checked);
-    };
-  
-    return (
-      <input
-        type="checkbox"
-        className="form-check-input mb-1 checkbox"
-        checked={checked}
-        onChange={handleCheckBoxChange}
-      />
-    );
+  const handleCheckBoxChange = () => {
+    onChange(!checked);
   };
-  
-  export default CheckBoxLog;
+
+  return (
+    <input
+      type="checkbox"
+      className="form-check-input mb-1 checkbox"
+      checked={checked}
+      onChange={handleCheckBoxChange}
+    />
+  );
+};
+
+export default CheckBoxLog;

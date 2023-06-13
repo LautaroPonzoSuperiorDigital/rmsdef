@@ -66,6 +66,7 @@ const EditModalListings = ({ renderSectionContent }) => {
     public: false,
     bedrooms: "",
     bathrooms: "",
+    amentities: "",
   });
   const handleInputChange = (event) => {
     const { name, value, type, checked } = event.target;
@@ -120,7 +121,10 @@ const EditModalListings = ({ renderSectionContent }) => {
     const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(listingData),
+      body: JSON.stringify({
+        ...listingData,
+        amentities: amentities.join(", "), // Concatenar las amenidades en un solo string separado por coma
+      }),
     };
 
     fetch("http://localhost:8000/api/add-listing", requestOptions)
@@ -156,6 +160,7 @@ const EditModalListings = ({ renderSectionContent }) => {
       document.removeEventListener("keydown", handleKeyDown);
     };
   }, []);
+  
 
   const hasNoImages =
     !renderSectionContent || renderSectionContent.images.length === 0;
@@ -299,6 +304,7 @@ const EditModalListings = ({ renderSectionContent }) => {
                           <input
                             className="inputAmentities"
                             type="text"
+                            value={amentity}
                             onChange={(e) =>
                               handleAmentityChange(index, e.target.value)
                             }

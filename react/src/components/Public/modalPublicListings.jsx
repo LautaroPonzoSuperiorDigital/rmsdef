@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "../../styles/publIcListings/publicListings.css";
 
@@ -17,6 +17,16 @@ const ModalPublicListings = ({ selectedImage, onCloseModal }) => {
     window.location.href = window.location.href;
     onCloseModal();
   };
+  useEffect(() => {
+    fetch("http://localhost:8000/api/public-listings")
+      .then((response) => response.json())
+      .then((data) => {
+        setListings(data.listings);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  }, []);
 
   return (
     <div className="publicModal1">

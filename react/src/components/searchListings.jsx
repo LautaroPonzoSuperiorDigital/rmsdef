@@ -1,11 +1,15 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import SearchIcon from "../assets/img/SearchIcon.svg";
 import SearchIconHover from "../assets/img/SearchIconHover.svg";
 import "../styles/tenants.css";
 
-function SearchListings() {
+function SearchListings({ onSearch }) {
   const [isHovered, setIsHovered] = useState(false);
+  const [searchValue, setSearchValue] = useState("");
 
+  const handleSearchChange = (event) => {
+    onSearch(event.target.value);
+  };
   const handleMouseEnter = () => {
     setIsHovered(true);
   };
@@ -22,6 +26,7 @@ function SearchListings() {
         placeholder="Search"
         aria-label="Search"
         aria-describedby="button-addon2"
+        onChange={handleSearchChange}
       />
 
       <button

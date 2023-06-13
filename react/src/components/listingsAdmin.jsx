@@ -21,6 +21,8 @@ const ListingsAdmin = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [showOnlyPublicListings, setShowOnlyPublicListings] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [searchId, setSearchId] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
   const [newListing, setNewListing] = useState({
     location: "",
     lot_size: "",
@@ -28,6 +30,21 @@ const ListingsAdmin = () => {
     price: "",
   });
 
+  const handleSearch = (searchValue) => {
+    setSearchId(searchValue);
+
+    if (searchValue === "") {
+      setSearchResults([]);
+      return;
+    }
+
+    const filteredListings = listings.filter(
+      (listing) =>
+        listing.id.toString().includes(searchValue) ||
+        listing.location.includes(searchValue)
+    );
+    setSearchResults(filteredListings);
+  };
   const handleAddListing = () => {
     setShowModal(true);
   };
@@ -120,7 +137,7 @@ const ListingsAdmin = () => {
             </div>
           </div>
           <div className="container-fluid ListingContainer d-flex justify-content-end bttonContainer">
-            <SearchListings />
+            <SearchListings onSearch={handleSearch} />
             <AddListings onClick={handleAddListing} />
           </div>
         </div>
@@ -155,83 +172,88 @@ const ListingsAdmin = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {filteredListings.map((listing, index) => (
-                    <tr key={listing.id} className="trBg">
-                      <td className="imgId">
-                        <p className="alignText d-flex align-items-center h p1">
-                          <img
-                            className="testImg"
-                            src={testImg}
-                            alt="testImg"
-                          />
-                          {listing.id}
-                        </p>
-                      </td>
-                      <td className="h p1 td td2">
-                        <p className="alignText d-flex align-items-center">
-                          {listing.location}
-                        </p>
-                      </td>
-                      <td className="h p1 td td2">
-                        <p className="alignText d-flex align-items-center">
-                          {listing.lot_size
-                            ? listing.lot_size.toLocaleString("EN", {
-                                maximumFractionDigits: 0,
-                              })
-                            : ""}
-                          &nbsp;Sq. Ft. Per County
-                        </p>
-                      </td>
-                      <td className="h p1 td td2">
-                        <p className="alignText d-flex align-items-center">
-                          {listing.house_size
-                            ? listing.house_size.toLocaleString("EN", {
-                                maximumFractionDigits: 0,
-                              })
-                            : ""}{" "}
-                          Sq. Ft. Per County
-                        </p>
-                      </td>
-                      <td className="h p1 td td2">
-                        <p className="alignText d-flex align-items-center">
-                          $
-                          {listing.price
-                            ? parseFloat(listing.price).toLocaleString("en", {
-                                useGrouping: true,
-                              })
-                            : ""}
-                          /mo
-                        </p>
-                      </td>
-                      <td className="h p1 td td2"></td>
-                      <td className="h p1 td td2">
-                        <p className="alignText d-flex align-items-center">
-                          {listing.public && (
+                  {(searchId !== "" ? searchResults : filteredListings).map(
+                    (listing, index) => (
+                      <tr key={listing.id} className="trBg">
+                        <td className="imgId">
+                          <p className="alignText d-flex align-items-center h p1">
                             <img
-                              className="checkMarkListing"
-                              src={CheckMarkListing}
-                              alt="CheckMark"
+                              className="testImg"
+                              src={testImg}
+                              alt="testImg"
                             />
-                          )}
-                        </p>
-                      </td>
-                      <td>
-                        <EditButton
-                          defaultImage={<img src={Edit} alt="Edit" />}
-                          hoverImage={<img src={EditHover} alt="EditHover" />}
-                          onClick={() => handleEdit(index)}
-                        />
-                        <DeleteButton
-                          className="delete"
-                          defaultImage={<img src={Delete} alt="Delete" />}
-                          hoverImage={
-                            <img src={DeleteIconHover} alt="DeleteIconHover" />
-                          }
-                          onClick={() => deleteListing(listing.id)}
-                        />
-                      </td>
-                    </tr>
-                  ))}
+                            {listing.id}
+                          </p>
+                        </td>
+                        <td className="h p1 td td2">
+                          <p className="alignText d-flex align-items-center">
+                            {listing.location}
+                          </p>
+                        </td>
+                        <td className="h p1 td td2">
+                          <p className="alignText d-flex align-items-center">
+                            {listing.lot_size
+                              ? listing.lot_size.toLocaleString("EN", {
+                                  maximumFractionDigits: 0,
+                                })
+                              : ""}
+                            &nbsp;Sq. Ft. Per County
+                          </p>
+                        </td>
+                        <td className="h p1 td td2">
+                          <p className="alignText d-flex align-items-center">
+                            {listing.house_size
+                              ? listing.house_size.toLocaleString("EN", {
+                                  maximumFractionDigits: 0,
+                                })
+                              : ""}{" "}
+                            Sq. Ft. Per County
+                          </p>
+                        </td>
+                        <td className="h p1 td td2">
+                          <p className="alignText d-flex align-items-center">
+                            $
+                            {listing.price
+                              ? parseFloat(listing.price).toLocaleString("en", {
+                                  useGrouping: true,
+                                })
+                              : ""}
+                            /mo
+                          </p>
+                        </td>
+                        <td className="h p1 td td2"></td>
+                        <td className="h p1 td td2">
+                          <p className="alignText d-flex align-items-center">
+                            {listing.public && (
+                              <img
+                                className="checkMarkListing"
+                                src={CheckMarkListing}
+                                alt="CheckMark"
+                              />
+                            )}
+                          </p>
+                        </td>
+                        <td>
+                          <EditButton
+                            defaultImage={<img src={Edit} alt="Edit" />}
+                            hoverImage={<img src={EditHover} alt="EditHover" />}
+                            onClick={() => handleEdit(index)}
+                          />
+                          <DeleteButton
+                            className="delete"
+                            defaultImage={<img src={Delete} alt="Delete" />}
+                            hoverImage={
+                              <img
+                                src={DeleteIconHover}
+                                alt="DeleteIconHover"
+                              />
+                            }
+                            onClick={() => deleteListing(listing.id)}
+                          />
+                        </td>
+                      </tr>
+                    )
+                  )}
                 </tbody>
               </table>
             </div>
