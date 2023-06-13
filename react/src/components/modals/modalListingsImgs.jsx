@@ -31,15 +31,68 @@ const ModalListingsImgs = ({ closeModal, images }) => {
   const [isHoveredClose, setIsHoveredClose] = useState(false);
   const [isGoBackHovered, setIsGoBackHovered] = useState(false);
   const [isOpen, setIsOpen] = useState(true);
-   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedFile, setSelectedFile] = useState(null);
 
-   const openEditModal = () => {
-     setIsEditModalOpen(true);
-   };
+  const handleFileInputChange = (event) => {
+    const file = event.target.files[0];
+    setSelectedFile(file);
+    const reader = new FileReader();
 
-   const closeEditModal = () => {
-     setIsEditModalOpen(false);
-   };
+    const uploadImage = (file) => {
+      if (!(file instanceof File)) {
+        console.error("Invalid file");
+        return;
+      }
+
+      const reader = new FileReader();
+
+      reader.onload = (e) => {
+        const arrayBuffer = e.target.result;
+
+        fetch("http://localhost:8000/api/add-listing", {
+          method: "POST",
+          body: arrayBuffer,
+          headers: {
+            "Content-Type": file.type,
+          },
+        })
+          .then((response) => {
+            if (response.ok) {
+              console.log("Image uploaded successfully");
+              // Handle the server response if necessary
+            } else {
+              throw new Error("Error uploading image");
+            }
+          })
+          .catch((error) => {
+            console.error(error);
+            // Handle errors
+          });
+      };
+
+      reader.readAsArrayBuffer(file);
+    };
+    reader.onload = (e) => {
+      setSelectedImage(e.target.result);
+      uploadImage(file);
+    };
+
+    reader.readAsDataURL(file);
+  };
+  const handleImageChange = (event) => {
+    const file = event.target.files[0];
+    setSelectedImage(file);
+  };
+
+  const openEditModal = () => {
+    setIsEditModalOpen(true);
+  };
+
+  const closeEditModal = () => {
+    setIsEditModalOpen(false);
+  };
   const hasImages = images && images.length > 0;
 
   const handleGoBackMouseEnter = () => {
@@ -72,10 +125,9 @@ const ModalListingsImgs = ({ closeModal, images }) => {
   const handleCloseTotal = () => {
     navigate("/listingsAdmin");
   };
-   useEffect(() => {
-     setIsModalOpen(false);
-   }, []);
-
+  useEffect(() => {
+    setIsModalOpen(false);
+  }, []);
 
   const renderSectionContent = () => {
     switch (activeSection) {
@@ -84,187 +136,11 @@ const ModalListingsImgs = ({ closeModal, images }) => {
           <div className="flex d-flex align-items-start justify-content-start">
             <div className="imgFlex d-flex flex-wrap justify-content-start">
               <div className="imgContainer1">
-                <img className="flex-area1" src={img1} />
-                <div
-                  className="bgDel"
-                  onMouseEnter={handleMouseEnter}
-                  onMouseLeave={handleMouseLeave}
-                >
-                  <div className="prop">
-                    <img
-                      className={isHovered ? "delHover" : "del"}
-                      src={isHovered ? delHover : del}
-                    />
-                  </div>
-                </div>
-              </div>
-              <div className="imgContainer1">
-                <img className="flex-area1" src={img2} />
-                <div
-                  className="bgDel"
-                  onMouseEnter={handleMouseEnter}
-                  onMouseLeave={handleMouseLeave}
-                >
-                  <div className="prop">
-                    <img
-                      className={isHovered ? "delHover" : "del"}
-                      src={isHovered ? delHover : del}
-                    />
-                  </div>
-                </div>
-              </div>
-              <div className="imgContainer1">
-                <img className="flex-area1" src={img3} />
-                <div
-                  className="bgDel"
-                  onMouseEnter={handleMouseEnter}
-                  onMouseLeave={handleMouseLeave}
-                >
-                  <div className="prop">
-                    <img
-                      className={isHovered ? "delHover" : "del"}
-                      src={isHovered ? delHover : del}
-                    />
-                  </div>
-                </div>
-              </div>
-              <div className="imgContainer1">
-                <img className="flex-area1" src={img4} />
-                <div
-                  className="bgDel"
-                  onMouseEnter={handleMouseEnter}
-                  onMouseLeave={handleMouseLeave}
-                >
-                  <div className="prop">
-                    <img
-                      className={isHovered ? "delHover" : "del"}
-                      src={isHovered ? delHover : del}
-                    />
-                  </div>
-                </div>
-              </div>
-              <div className="imgContainer1">
-                <img className="flex-area1" src={img5} />
-                <div
-                  className="bgDel"
-                  onMouseEnter={handleMouseEnter}
-                  onMouseLeave={handleMouseLeave}
-                >
-                  <div className="prop">
-                    <img
-                      className={isHovered ? "delHover" : "del"}
-                      src={isHovered ? delHover : del}
-                    />
-                  </div>
-                </div>
-              </div>
-              <div className="imgContainer1">
-                <img className="flex-area1" src={img6} />
-                <div
-                  className="bgDel"
-                  onMouseEnter={handleMouseEnter}
-                  onMouseLeave={handleMouseLeave}
-                >
-                  <div className="prop">
-                    <img
-                      className={isHovered ? "delHover" : "del"}
-                      src={isHovered ? delHover : del}
-                    />
-                  </div>
-                </div>
-              </div>
-              <div className="imgContainer1">
-                <img className="flex-area1" src={img7} />
-                <div
-                  className="bgDel"
-                  onMouseEnter={handleMouseEnter}
-                  onMouseLeave={handleMouseLeave}
-                >
-                  <div className="prop">
-                    <img
-                      className={isHovered ? "delHover" : "del"}
-                      src={isHovered ? delHover : del}
-                    />
-                  </div>
-                </div>
-              </div>
-              <div className="imgContainer1">
-                <img className="flex-area1" src={img8} />
-                <div
-                  className="bgDel"
-                  onMouseEnter={handleMouseEnter}
-                  onMouseLeave={handleMouseLeave}
-                >
-                  <div className="prop">
-                    <img
-                      className={isHovered ? "delHover" : "del"}
-                      src={isHovered ? delHover : del}
-                    />
-                  </div>
-                </div>
-              </div>
-              <div className="imgContainer1">
-                <img className="flex-area1" src={img9} />
-                <div
-                  className="bgDel"
-                  onMouseEnter={handleMouseEnter}
-                  onMouseLeave={handleMouseLeave}
-                >
-                  <div className="prop">
-                    <img
-                      className={isHovered ? "delHover" : "del"}
-                      src={isHovered ? delHover : del}
-                    />
-                  </div>
-                </div>
-              </div>
-              <div className="imgContainer1">
-                <img className="flex-area1" src={img10} />
-                <div
-                  className="bgDel"
-                  onMouseEnter={handleMouseEnter}
-                  onMouseLeave={handleMouseLeave}
-                >
-                  <div className="prop">
-                    <img
-                      className={isHovered ? "delHover" : "del"}
-                      src={isHovered ? delHover : del}
-                    />
-                  </div>
-                </div>
-              </div>
-              <div className="imgContainer1">
-                <img className="flex-area1" src={img11} />
-                <div
-                  className="bgDel"
-                  onMouseEnter={handleMouseEnter}
-                  onMouseLeave={handleMouseLeave}
-                >
-                  <div className="prop">
-                    <img
-                      className={isHovered ? "delHover" : "del"}
-                      src={isHovered ? delHover : del}
-                    />
-                  </div>
-                </div>
-              </div>
-              <div className="imgContainer1">
-                <img className="flex-area1" src={img12} />
-                <div
-                  className="bgDel"
-                  onMouseEnter={handleMouseEnter}
-                  onMouseLeave={handleMouseLeave}
-                >
-                  <div className="prop">
-                    <img
-                      className={isHovered ? "delHover" : "del"}
-                      src={isHovered ? delHover : del}
-                    />
-                  </div>
-                </div>
-              </div>
-              <div className="imgContainer1">
-                <img className="flex-area1" src={img13} />
+                {selectedImage ? (
+                  <img className="flex-area1" src={selectedImage} />
+                ) : (
+                  <img className="flex-area1" src={img1} />
+                )}
                 <div
                   className="bgDel"
                   onMouseEnter={handleMouseEnter}
@@ -497,7 +373,12 @@ const ModalListingsImgs = ({ closeModal, images }) => {
             <label className="option" htmlFor="fileInput">
               + Add Photos
             </label>
-            <input type="file" id="fileInput" />
+            <input
+              type="file"
+              id="fileInput"
+              name="image"
+              onChange={handleFileInputChange}
+            />
           </li>
         </ul>
       </div>

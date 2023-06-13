@@ -13,7 +13,7 @@ const EditModalListings = ({ renderSectionContent }) => {
   const [showImageModal, setShowImageModal] = useState(false);
   const [showMainModal, setShowMainModal] = useState(true);
   const [isImageHovered, setIsImageHovered] = useState(false);
-  const [amentities, setAmentities] = useState([""]);
+  const [amentities, setAmentities] = useState([""]);   
 
   const inputRefs = useRef([]);
 
