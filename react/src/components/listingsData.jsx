@@ -1,5 +1,5 @@
 import testImg from "../assets/img/testImg.jpg";
-import CheckMark from "../assets/img/CheckMark.svg";
+import CheckMark from "../assets/img/checkMark.svg";
 const ListingsData = [
   {
     image: <img className="testImg" src={testImg} />,

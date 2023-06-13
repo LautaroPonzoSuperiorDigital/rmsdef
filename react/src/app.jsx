@@ -1,13 +1,13 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./components/login";
-import Tenant from "./components/Tenants";
-import ListingsAdmin from "./components/ListingsAdmin";
-import Applicants from "./components/Applicants";
-import Chats from "./components/Chats";
-import Documents from "./components/Documents";
-import SubAdmins from "./components/SubAdmins";
-import PublicListings from "./components/Public/PublicListings";
+import Tenant from "./components/tenants";
+import ListingsAdmin from "./components/listingsAdmin";
+import Applicants from "./components/applicants";
+import Chats from "./components/chats";
+import Documents from "./components/documents";
+import SubAdmins from "./components/subAdmins";
+import PublicListings from "./components/public/publicListings";
 
 
 function App() {

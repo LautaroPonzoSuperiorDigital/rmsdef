@@ -1,4 +1,4 @@
-import CheckMark from "../assets/img/CheckMark.svg";
+import CheckMark from "../assets/img/checkMark.svg";
 import "./modals";
 import React from "react";
 
