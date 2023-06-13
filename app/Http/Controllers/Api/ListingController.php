@@ -4,11 +4,15 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Models\Listing;
+use App\Models\ListingSection;
+use App\Models\SectionPictures;
 use App\Models\Rent;
 use Illuminate\Http\Request;
 // use Illuminate\Support\Facades\Auth;
 // use App\Models\User;
 use Illuminate\Support\Facades\DB;
+// use Illuminate\Support\Facades\Storage;
+
 
 
 
@@ -47,24 +51,74 @@ class ListingController extends Controller
         $listing->lot_size = $request->input('lot_size');
         $listing->house_size = $request->input('house_size');
         $listing->price = $request->input('price');
-        $listing->public = $request->input('public');
+        $listing->public = $request->input('public') ? 1 : 0;
         $listing->bedrooms = $request->input('bedrooms');
         $listing->bathrooms = $request->input('bathrooms');
         $listing->amentities = $request->input('amentities');
         $listing->status = 1;
-        $listing->created_by = '1'; //check auth
+        $listing->created_by = '1'; // Verificar la autenticación
 
-       if ($request->hasFile('images')) {
-            $images = $request->file('images');
-    
-            foreach ($images as $image) {
-                $imagePath = $image->store('public/images');
-                //funcion para guardar las rutas de las imagenes en la bd
-            }
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $destinationPath = 'images';
+            $filename = time() . '-' . $file->getClientOriginalName();
+            $uploadSuccess = $request->file('image')->move($destinationPath, $filename);
+            $listing->image = $destinationPath . '/' . $filename;
         }
+
         $listing->save();
 
         return response()->json(['listing' => $listing]);
+    }
+
+
+
+    public function addMainPicture(Request $request, $id)
+    {
+        $listing = Listing::find($id);
+        if (!$listing) {
+            return response()->json(['error' => 'Listing not found'], 404);
+        }
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $destinationPath = 'images';
+            $filename = time() . '-' . $file->getClientOriginalName();
+            $uploadSuccess = $request->file('image')->move($destinationPath, $filename);
+            $listing->image = $destinationPath . '/' . $filename;
+        } else {
+            return response()->json(['error' => 'No image selected']);
+        }
+
+        $listing->save();
+        return response()->json(['OK' => 'Upload Success'], ['listing' => $listing]);
+    }
+
+    public function addSection(Request $request)
+    {
+        $section = new ListingSection;
+        $section->listing_id = $request->input('listing_id');
+        $section->name = $request->input('name');
+
+        $section->save();
+
+        return response()->json(['section' => $section]);
+    }
+
+    public function addPictureToSection(Request $request)
+    {
+        if ($request->hasFile('image')) {
+            $destinationPath = 'images';
+            $file = $request->file('image');
+            $filename = time() . '-' . $file->getClientOriginalName();
+            $uploadSuccess = $file->move($destinationPath, $filename);
+
+            $sectionPicture = new SectionPictures;
+            $sectionPicture->section_id = $request->input('section_id');
+            $sectionPicture->path = $destinationPath . '/' . $filename;
+            $sectionPicture->save();
+
+            return response()->json(['OK' => 'Upload Success']);
+        }
     }
 
 
@@ -118,21 +172,21 @@ class ListingController extends Controller
         return response()->json(['listing' => $listing]);
     }
 
-public function deleteListing($id)
-{
-    $listing = Listing::find($id);
-    if (!$listing) {
-        return response()->json(['error' => 'Listing not found'], 404);
+    public function deleteListing($id)
+    {
+        $listing = Listing::find($id);
+        if (!$listing) {
+            return response()->json(['error' => 'Listing not found'], 404);
+        }
+
+        // Eliminar la imagen de portada y las imágenes de la galería
+
+        $listing->status = 2;
+        $listing->save();
+
+        return response()->json(['message' => 'Listing deleted successfully']);
     }
 
-    // Eliminar la imagen de portada y las imágenes de la galería
-
-    $listing->status = 2;
-    $listing->save();
-
-    return response()->json(['message' => 'Listing deleted successfully']);
-}
-    
     public function recoverListing($id)
     {
         $listing = Listing::find($id);
@@ -173,7 +227,7 @@ public function deleteListing($id)
     }
     public function publicListings()
     {
-         $listings = Listing::where([['status',  1],['public',  1]])->get();
+        $listings = Listing::where([['status',  1], ['public',  1]])->get();
 
         return response()->json(['listings' => $listings], 200);
     }

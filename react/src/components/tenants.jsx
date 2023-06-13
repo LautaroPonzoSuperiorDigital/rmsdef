@@ -1,18 +1,18 @@
 import React from "react";
-import Nav from "./Nav";
+import Nav from "./nav";
 import { useState } from "react";
 import "../styles/tenants.css";
 import Edit from "../assets/img/Edit.svg";
 import EditHover from "../assets/img/EditHover.svg";
-import Delete from "../assets/img/Delete.svg";
-import DeleteIconHover from "../assets/img/DeleteIconHover.svg";
-import CheckMark from "../assets/img/CheckMark.svg";
+import Delete from "../assets/img/delete.svg";
+import DeleteIconHover from "../assets/img/deleteIconHover.svg";
+import CheckMark from "../assets/img/checkMark.svg";
 import tenantsData from "./tenantsData";
 import { EditButton, DeleteButton } from "./Buttons";
-import EditModal from "./Modals";
+import EditModal from "./modals";
 import CheckBoxLog from "./checkBox";
-import Search from "./Search";
-import Pagination from "./Paginations";
+import Search from "./search";
+import Pagination from "./paginations";
 import "../styles/modal.css";
 
 const Tenant = () => {
