@@ -11,11 +11,8 @@ use Illuminate\Http\Request;
 // use Illuminate\Support\Facades\Auth;
 // use App\Models\User;
 use Illuminate\Support\Facades\DB;
-<<<<<<< HEAD
-=======
 // use Illuminate\Support\Facades\Storage;
 
->>>>>>> 0d730abbe5a13de1dedbcd890b04344809ce52f5
 
 // use Illuminate\Support\Facades\Storage;
 

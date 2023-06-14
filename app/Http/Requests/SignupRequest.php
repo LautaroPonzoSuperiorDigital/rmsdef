@@ -29,17 +29,6 @@ class SignupRequest extends FormRequest
             'email' => ['required', 'email', 'unique:users,email'],
             'password' => [
                 'required',
-<<<<<<< HEAD
-                'confirmed',
-                Password::min(8)
-                    ->letters()
-                    ->symbols()
-                    ->numbers()
-            ]
-        ];
-    }
-}
-=======
                 // 'confirmed',
                 // Password::min(8)
                 //     ->letters()
@@ -49,4 +38,3 @@ class SignupRequest extends FormRequest
         ];
     }
 }
->>>>>>> 0d730abbe5a13de1dedbcd890b04344809ce52f5
