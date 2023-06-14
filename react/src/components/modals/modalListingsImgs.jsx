@@ -23,11 +23,7 @@ import "../../styles/modal.css";
 import "../../styles/modalImgsSwitch.css";
 import EditModalSections from "./modalSections";
 
-<<<<<<< HEAD
-const ModalListingsImgs = ({ closeModal, images, onImageUpdate }) => {
-=======
 const ModalListingsImgs = ({ closeModal, images }) => {
->>>>>>> 0d730abbe5a13de1dedbcd890b04344809ce52f5
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
   const [activeSection, setActiveSection] = useState("EXTERIOR");
@@ -43,19 +39,11 @@ const ModalListingsImgs = ({ closeModal, images }) => {
     const file = event.target.files[0];
     setSelectedImage(file);
   };
-<<<<<<< HEAD
-=======
-
->>>>>>> 0d730abbe5a13de1dedbcd890b04344809ce52f5
   const handleImageUpload = () => {
     if (!selectedImage) {
       console.error("No image selected.");
       return;
     }
-<<<<<<< HEAD
-    onImageUpdate(selectedImage)
-=======
->>>>>>> 0d730abbe5a13de1dedbcd890b04344809ce52f5
 
     const formData = new FormData();
     formData.append("image", selectedImage);
@@ -370,11 +358,7 @@ const ModalListingsImgs = ({ closeModal, images }) => {
             Edit Sections
           </li>
           <li className="option">
-<<<<<<< HEAD
-            <label className="option" htmlFor="fileInput">
-=======
             <label className="option" htmlFor="fileInput" >
->>>>>>> 0d730abbe5a13de1dedbcd890b04344809ce52f5
               + Add Photos
             </label>
             <input
@@ -392,8 +376,4 @@ const ModalListingsImgs = ({ closeModal, images }) => {
   );
 };
 
-<<<<<<< HEAD
 export default ModalListingsImgs;
-=======
-export default ModalListingsImgs;
->>>>>>> 0d730abbe5a13de1dedbcd890b04344809ce52f5
