@@ -13,22 +13,10 @@ const EditModalListings = ({ renderSectionContent }) => {
   const [showImageModal, setShowImageModal] = useState(false);
   const [showMainModal, setShowMainModal] = useState(true);
   const [isImageHovered, setIsImageHovered] = useState(false);
-<<<<<<< HEAD
-  const [selectedListingId, setSelectedListingId] = useState(null);
-  const [amentities, setAmentities] = useState([""]);
-
-  const inputRefs = useRef([]);
-
-  const handleSelectImage = (file) => {
-    console.log(file);
-  }
-
-=======
   const [amentities, setAmentities] = useState([""]);   
 
   const inputRefs = useRef([]);
 
->>>>>>> 0d730abbe5a13de1dedbcd890b04344809ce52f5
   const handleAmentityChange = (index, value) => {
     const newAmentities = [...amentities];
     newAmentities[index] = value;
@@ -92,13 +80,6 @@ const EditModalListings = ({ renderSectionContent }) => {
   const handleCloseModal = () => {
     closeModal();
     navigate("/listingsAdmin");
-<<<<<<< HEAD
-    const storedImage = localStorage.getItem("selectedImage");
-    if (storedImage) {
-      setSelectedImage(JSON.parse(storedImage));
-    }
-=======
->>>>>>> 0d730abbe5a13de1dedbcd890b04344809ce52f5
   };
 
   const addNewLine = () => {
@@ -130,10 +111,6 @@ const EditModalListings = ({ renderSectionContent }) => {
   const handleImageClick = () => {
     setShowImageModal(true);
     setShowMainModal(false);
-<<<<<<< HEAD
-    setSelectedListingId(listingData.id);
-=======
->>>>>>> 0d730abbe5a13de1dedbcd890b04344809ce52f5
   };
 
   const closeModal = () => {
@@ -183,10 +160,7 @@ const EditModalListings = ({ renderSectionContent }) => {
       document.removeEventListener("keydown", handleKeyDown);
     };
   }, []);
-<<<<<<< HEAD
-=======
   
->>>>>>> 0d730abbe5a13de1dedbcd890b04344809ce52f5
 
   const hasNoImages =
     !renderSectionContent || renderSectionContent.images.length === 0;
@@ -219,16 +193,7 @@ const EditModalListings = ({ renderSectionContent }) => {
                 >
                   {hasNoImages ? (
                     <div className="editBar1">
-<<<<<<< HEAD
-                      <span
-                        className="editText"
-                        onClick={() => setShowSecondModal(true)}
-                      >
-                        + Add Photos
-                      </span>
-=======
                       <span className="editText">+ Add Photos</span>
->>>>>>> 0d730abbe5a13de1dedbcd890b04344809ce52f5
                     </div>
                   ) : (
                     <div className="editBar">
@@ -377,15 +342,7 @@ const EditModalListings = ({ renderSectionContent }) => {
         )}
         {showImageModal && (
           <>
-<<<<<<< HEAD
-            <ModalListingsImgs
-              closeModal={closeModal}
-              selectedListingId={selectedListingId}
-              onImageUpdate={handleSelectImage}
-            />
-=======
             <ModalListingsImgs closeModal={closeModal} />
->>>>>>> 0d730abbe5a13de1dedbcd890b04344809ce52f5
             <style>{`.footer { display: none !important; }`}</style>
           </>
         )}
