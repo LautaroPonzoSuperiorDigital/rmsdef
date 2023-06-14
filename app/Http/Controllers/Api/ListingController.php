@@ -40,7 +40,7 @@ class ListingController extends Controller
             return response()->json(['message' => 'No se encontró el listado'], 404);
         }
 
-        // Aquí puedes realizar cualquier otra lógica o modificaciones necesarias antes de devolver la respuesta
+  
 
         return response()->json(['listing' => $listing]);
     }
