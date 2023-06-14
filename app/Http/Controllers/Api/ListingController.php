@@ -230,15 +230,11 @@ class ListingController extends Controller
     }
     public function publicListings()
     {
-<<<<<<< HEAD
+
         $listings = Listing::where([['status', 1], ['public', 1]])->get();
-=======
-<<<<<<< HEAD
-        $listings = Listing::where([['status', 1], ['public', 1]])->get();
-=======
-        $listings = Listing::where([['status',  1], ['public',  1]])->get();
->>>>>>> 4ec8a079b6c7a915b57806d1a1a608dddd56fa50
->>>>>>> 0d730abbe5a13de1dedbcd890b04344809ce52f5
+
+       $listings = Listing::where([['status',  1], ['public',  1]])->get();
+
 
         return response()->json(['listings' => $listings], 200);
     }
@@ -265,8 +261,4 @@ class ListingController extends Controller
 //     })->get();
 //     return response()->json(['listings' => $listings], 200);
 // }
-<<<<<<< HEAD
-}   
-=======
 }
->>>>>>> 0d730abbe5a13de1dedbcd890b04344809ce52f5
