@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from "react";
 import Nav from "./nav";
-import CheckBoxLog from "./checkbox";
+import CheckBoxLog from "./checkBox";
 import SearchListings from "./searchListings";
 import listingsData from "./listingsData";
 import testImg from "../assets/img/testImg.jpg";
-import CheckMarkListing from "../assets/img/CheckMark.svg";
+import CheckMarkListing from "../assets/img/checkMark.svg";
 import "../styles/tenants.css";
 import { EditButton, DeleteButton } from "./buttonListings";
 import Edit from "../assets/img/Edit.svg";
 import EditHover from "../assets/img/EditHover.svg";
-import Delete from "../assets/img/Delete.svg";
-import DeleteIconHover from "../assets/img/DeleteIconHover.svg";
+import Delete from "../assets/img/delete.svg";
+import DeleteIconHover from "../assets/img/deleteIconHover.svg";
 import Pagination from "./paginations";
 import AddListings from "./addListing";
 import fetchListings from "../fetch";
@@ -22,7 +22,6 @@ const ListingsAdmin = () => {
   const [showOnlyPublicListings, setShowOnlyPublicListings] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [searchId, setSearchId] = useState("");
-  const [selectedListingId, setSelectedListingId] = useState(null);
   const [searchResults, setSearchResults] = useState([]);
   const [newListing, setNewListing] = useState({
     location: "",
@@ -72,8 +71,6 @@ const ListingsAdmin = () => {
       dropdown.style.display === "none" ? "block" : "none";
   };
   const handleEdit = (index) => {
-    const listing = filteredListings[index];
-    setSelectedListingId(listing.id);
     console.log("Editar listado con índice:", index);
   };
 
@@ -227,13 +224,13 @@ const ListingsAdmin = () => {
                         <td className="h p1 td td2"></td>
                         <td className="h p1 td td2">
                           <p className="alignText d-flex align-items-center">
-                            {listing.public ? (
+                            {listing.public && (
                               <img
                                 className="checkMarkListing"
                                 src={CheckMarkListing}
                                 alt="CheckMark"
                               />
-                            ): null}
+                            )}
                           </p>
                         </td>
                         <td>
@@ -264,10 +261,7 @@ const ListingsAdmin = () => {
         </div>
       </div>
       {showModal && (
-        <EditModalListings
-          onClose={handleModalClose}
-          selectedListingId={selectedListingId}
-        />
+        <EditModalListings onClose={handleModalClose}></EditModalListings>
       )}
       <Pagination
         currentPage={currentPage}

@@ -11,6 +11,11 @@ use Illuminate\Http\Request;
 // use Illuminate\Support\Facades\Auth;
 // use App\Models\User;
 use Illuminate\Support\Facades\DB;
+<<<<<<< HEAD
+=======
+// use Illuminate\Support\Facades\Storage;
+
+>>>>>>> 0d730abbe5a13de1dedbcd890b04344809ce52f5
 
 // use Illuminate\Support\Facades\Storage;
 
@@ -40,7 +45,11 @@ class ListingController extends Controller
             return response()->json(['message' => 'No se encontró el listado'], 404);
         }
 
+<<<<<<< HEAD
   
+=======
+        // Aquí puedes realizar cualquier otra lógica o modificaciones necesarias antes de devolver la respuesta
+>>>>>>> 0d730abbe5a13de1dedbcd890b04344809ce52f5
 
         return response()->json(['listing' => $listing]);
     }
@@ -228,7 +237,15 @@ class ListingController extends Controller
     }
     public function publicListings()
     {
+<<<<<<< HEAD
         $listings = Listing::where([['status', 1], ['public', 1]])->get();
+=======
+<<<<<<< HEAD
+        $listings = Listing::where([['status', 1], ['public', 1]])->get();
+=======
+        $listings = Listing::where([['status',  1], ['public',  1]])->get();
+>>>>>>> 4ec8a079b6c7a915b57806d1a1a608dddd56fa50
+>>>>>>> 0d730abbe5a13de1dedbcd890b04344809ce52f5
 
         return response()->json(['listings' => $listings], 200);
     }
@@ -255,4 +272,8 @@ class ListingController extends Controller
 //     })->get();
 //     return response()->json(['listings' => $listings], 200);
 // }
+<<<<<<< HEAD
 }   
+=======
+}
+>>>>>>> 0d730abbe5a13de1dedbcd890b04344809ce52f5
