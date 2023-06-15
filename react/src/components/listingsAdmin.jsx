@@ -76,7 +76,7 @@ const ListingsAdmin = () => {
   };
 
   const deleteListing = (listingId) => {
-    fetch(`http://localhost:8000/api/delete-listing/${listingId}`, {
+    fetch(`config.backendUrl + /api/delete-listing/${listingId}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
