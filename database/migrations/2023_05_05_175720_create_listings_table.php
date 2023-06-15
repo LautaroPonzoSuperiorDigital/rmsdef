@@ -22,7 +22,7 @@ class CreateListingsTable extends Migration
             $table->integer('public'); //1 public, 0 private
             $table->integer('bedrooms');
             $table->integer('bathrooms');
-            $table->text('amentities')->nullable();
+            $table->text('amenities')->nullable();
             $table->integer('status');//0 Inactive 1 Active 2 Deleted
             $table->bigInteger('created_by');
             $table->timestamps();

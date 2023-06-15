@@ -17,7 +17,7 @@ class Listing extends Model
         'type',
         'bedrooms',
         'bathrooms',
-        'amentities',
+        'amenities',
         'status',
         'created_by'
     ];

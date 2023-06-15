@@ -58,7 +58,7 @@ class ListingController extends Controller
         $listing->public = $request->input('public') ? 1 : 0;
         $listing->bedrooms = $request->input('bedrooms');
         $listing->bathrooms = $request->input('bathrooms');
-        $listing->amentities = $request->input('amentities');
+        $listing->amenities = $request->input('amenities');
         $listing->status = 1;
         $listing->created_by = '1'; // Verificar la autenticación
 
@@ -144,7 +144,7 @@ class ListingController extends Controller
         }
         $listing->bedrooms = $request->input('bedrooms');
         $listing->bathrooms = $request->input('bathrooms');
-        $listing->amentities = $request->input('amentities');
+        $listing->amenities = $request->input('amenities');
         $listing->status = 1;
         $listing->created_by = '1'; //check auth
 
