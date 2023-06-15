@@ -22,6 +22,7 @@ import img13 from "../../assets/img/13.jpg";
 import "../../styles/modal.css";
 import "../../styles/modalImgsSwitch.css";
 import EditModalSections from "./modalSections";
+import "../../config";
 
 const ModalListingsImgs = ({ closeModal, images }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -49,7 +50,7 @@ const ModalListingsImgs = ({ closeModal, images }) => {
     formData.append("image", selectedImage);
     formData.append("section_id", 1);
 
-    fetch("http://localhost:8000/api/add-listing", {
+    fetch(config.backendUrl + "/add-listing", {
       method: "POST",
       body: formData,
     })

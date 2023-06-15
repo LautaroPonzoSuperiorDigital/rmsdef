@@ -13,6 +13,7 @@ import picture4 from "../../assets/img/picture4.jpg";
 import picture5 from "../../assets/img/picture5.jpg";
 import picture6 from "../../assets/img/picture6.jpg";
 import ModalPublicListings from "./modalPublicListings";
+import config from "../../config";
 
 const PublicListings = () => {
   const [isSearchIconHovered, setIsSearchIconHovered] = useState(false);
@@ -54,7 +55,7 @@ const PublicListings = () => {
   };
 
   useEffect(() => {
-    fetch("http://localhost:8000/api/public-listings")
+    fetch(config.backendUrl + "/public-listings")
       .then((response) => response.json())
       .then((data) => {
         setListings(data.listings);

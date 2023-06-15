@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "../../styles/publIcListings/publicListings.css";
+import config from "../../config"; 
 
 const ModalPublicListings = ({ selectedImage, onCloseModal }) => {
    const [listing, setListing] = useState([]);
@@ -22,7 +23,7 @@ const ModalPublicListings = ({ selectedImage, onCloseModal }) => {
     const fetchListings = async () => {
       try {
         const response = await fetch(
-          "http://localhost:8000/api/public-listings"
+          VITE_API_BASE_URL + "/public-listings"
         );
         const data = await response.json();
         setListings(data.listings);

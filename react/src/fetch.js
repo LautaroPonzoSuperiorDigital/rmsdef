@@ -1,9 +1,10 @@
 import axios from "axios";
+import config from "./config";
 
 const fetchListings = (listingData = null) => {
   if (listingData) {
     return axios
-      .post("http://localhost:8000/api/create-listing", {
+      .post(config.backendUrl + "/create-listing", {
         listing: listingData,
       })
       .then((response) => {
@@ -17,7 +18,7 @@ const fetchListings = (listingData = null) => {
       });
   } else {
     return axios
-      .get("http://localhost:8000/api/show-listings")
+      .get(config.backendUrl + "/show-listings")
       .then((response) => {
         const listings = response.data;
 

@@ -5,6 +5,7 @@ import "../app.css";
 import "../styles/login.css";
 import Swal from "sweetalert2";
 import axios from "axios";
+import config from "../config";
 import { useStateContext } from "../context/contextProvider";
 
 const Login = () => {
@@ -19,7 +20,7 @@ const Login = () => {
       password: password,
     };
 
-    fetch("http://localhost:8000/api/login", {
+    fetch(config.backendUrl + "/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

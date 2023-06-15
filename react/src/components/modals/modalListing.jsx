@@ -7,6 +7,7 @@ import closeHover from "../../assets/img/closeHover.svg";
 import ModalListingsImgs from "./modalListingsImgs";
 import Pagination from "../paginations";
 import { useNavigate } from "react-router-dom";
+import "../../config";
 
 const EditModalListings = ({ renderSectionContent }) => {
   const [isCloseHovered, setIsCloseHovered] = useState(false);
@@ -127,7 +128,7 @@ const EditModalListings = ({ renderSectionContent }) => {
       }),
     };
 
-    fetch("http://localhost:8000/api/add-listing", requestOptions)
+    fetch(config.backendUrl + "/add-listing", requestOptions)
       .then((response) => response.json())
       .then((data) => {
         console.log(data);

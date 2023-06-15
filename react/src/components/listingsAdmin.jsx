@@ -15,6 +15,7 @@ import Pagination from "./paginations";
 import AddListings from "./addListing";
 import fetchListings from "../fetch";
 import EditModalListings from "./modals/modalListing";
+import config from "../config";
 
 const ListingsAdmin = () => {
   const [listings, setListings] = useState(listingsData);
