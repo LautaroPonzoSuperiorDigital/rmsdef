@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import "../../styles/publIcListings/publicListings.css";
 
 const ModalPublicListings = ({ selectedImage, onCloseModal }) => {
+   const [listing, setListing] = useState([]);
   const navigate = useNavigate();
 
   const imgCardContainerClass = `imgCardContainer ${
@@ -18,14 +19,22 @@ const ModalPublicListings = ({ selectedImage, onCloseModal }) => {
     onCloseModal();
   };
   useEffect(() => {
-    fetch("http://localhost:8000/api/public-listings")
-      .then((response) => response.json())
-      .then((data) => {
+    const fetchListings = async () => {
+      try {
+        const response = await fetch(
+          "http://localhost:8000/api/public-listings"
+        );
+        const data = await response.json();
         setListings(data.listings);
-      })
-      .catch((error) => {
+        if (data.listings.length > 0) {
+          setListing(data.listings[0]);
+        }
+      } catch (error) {
         console.error("Error:", error);
-      });
+      }
+    };
+
+    fetchListings();
   }, []);
 
   return (
@@ -48,7 +57,13 @@ const ModalPublicListings = ({ selectedImage, onCloseModal }) => {
       <div className="description1">
         <div className="publicPrice1 d-flex justify-content-start align-items-center">
           <p>
-            $ 6,500 <span className="xmonth">per month</span>
+            $
+            {listing.price
+              ? parseFloat(listing.price).toLocaleString("en", {
+                  useGrouping: true,
+                })
+              : ""}{" "}
+            <span className="xmonth">per month</span>
           </p>
         </div>
         <div className="spectsModal d-flex justify-content-between">
