@@ -13,44 +13,44 @@ const EditModalListings = ({ renderSectionContent }) => {
   const [showImageModal, setShowImageModal] = useState(false);
   const [showMainModal, setShowMainModal] = useState(true);
   const [isImageHovered, setIsImageHovered] = useState(false);
-  const [amentities, setAmentities] = useState([""]);   
+  const [amenities, setAmenities] = useState([""]);   
 
   const inputRefs = useRef([]);
 
   const handleAmentityChange = (index, value) => {
-    const newAmentities = [...amentities];
-    newAmentities[index] = value;
-    setAmentities(newAmentities);
+    const newAmenities = [...amenities];
+    newAmenities[index] = value;
+    setAmenities(newAmenities);
   };
 
   const handleKeyDown = (e, index) => {
     if (e.key === "Enter") {
       e.preventDefault();
       addNewAmentity(index);
-    } else if (e.key === "Backspace" && amentities[index] === "") {
+    } else if (e.key === "Backspace" && amenities[index] === "") {
       e.preventDefault();
       deleteAmentity(index);
     }
   };
 
   const addNewAmentity = (index) => {
-    if (amentities.length >= 6) return;
+    if (amenities.length >= 6) return;
 
-    const newAmentities = [...amentities];
-    if (index === newAmentities.length - 1) {
-      newAmentities.splice(index + 1, 0, "");
+    const newAmenities = [...amenities];
+    if (index === newAmenities.length - 1) {
+      newAmenities.splice(index + 1, 0, "");
     } else {
-      newAmentities.splice(index + 1, 0, "");
-      newAmentities.splice(6, 1);
+      newAmenities.splice(index + 1, 0, "");
+      newAmenities.splice(6, 1);
     }
-    setAmentities(newAmentities);
+    setAmenities(newAmenities);
   };
   const deleteAmentity = (index) => {
-    if (amentities.length === 1) return;
+    if (amenities.length === 1) return;
 
-    const newAmentities = [...amentities];
-    newAmentities.splice(index, 1);
-    setAmentities(newAmentities);
+    const newAmenities = [...amenities];
+    newAmenities.splice(index, 1);
+    setAmenities(newAmenities);
 
     if (index > 0 && inputRefs.current[index - 1]) {
       inputRefs.current[index - 1].focus();
@@ -66,7 +66,7 @@ const EditModalListings = ({ renderSectionContent }) => {
     public: false,
     bedrooms: "",
     bathrooms: "",
-    amentities: "",
+    amenities: "",
   });
   const handleInputChange = (event) => {
     const { name, value, type, checked } = event.target;
@@ -123,7 +123,7 @@ const EditModalListings = ({ renderSectionContent }) => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         ...listingData,
-        amentities: amentities.join(", "), // Concatenar las amenidades en un solo string separado por coma
+        amenities: amenities.join(", "), // Concatenar las amenidades en un solo string separado por coma
       }),
     };
 
@@ -297,12 +297,12 @@ const EditModalListings = ({ renderSectionContent }) => {
                         />
                       </div>
                     </div>
-                    <p className="amentities">AMENTITIES</p>
+                    <p className="amenities">AMENITIES</p>
                     <ul className="list">
-                      {amentities.map((amentity, index) => (
+                      {amenities.map((amentity, index) => (
                         <li key={index}>
                           <input
-                            className="inputAmentities"
+                            className="inputAmenities"
                             type="text"
                             value={amentity}
                             onChange={(e) =>

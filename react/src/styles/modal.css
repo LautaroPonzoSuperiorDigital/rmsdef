@@ -220,7 +220,7 @@
     background: transparent;
 }
 
-.amentities {
+.amenities {
     margin-top: -3rem;
     margin-left: -15rem;
 }
@@ -323,7 +323,7 @@ li {
     color: #31af9a;
 }
 
-.amentities {
+.amenities {
     color: rgba(128, 128, 128, 1.00);
 }
 
@@ -443,7 +443,7 @@ li {
 }
 
 /* Listing Modal2 */
-.inputAmentities {
+.inputAmenities {
     border: none;
     border-top: none;
     outline: none;

@@ -72,7 +72,7 @@ const ModalPublicListings = ({ selectedImage, onCloseModal }) => {
             <span className="desc2">Paso Robles, California</span>
             <p className="desc">House Size</p>
             <span className="desc2">3,435 Sq. Ft. Per County</span>
-            <p className="desc1">amentities</p>
+            <p className="desc1">AMENITIES</p>
           </div>
           <div className="order2">
             <p className="desc id2">ID</p>
